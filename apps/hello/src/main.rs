@@ -28,7 +28,7 @@ impl App for Hello {
         text(&painter, pos2(card.center().x, card.top() + l.v(138.0, 104.0)), Align2::CENTER_CENTER, "an app from the pikiosk store", l.v(20.0, 15.0), sc.white(0.75));
 
         let button = Rect::from_center_size(pos2(card.center().x, card.bottom() - l.v(52.0, 40.0)), vec2(l.v(200.0, 160.0), l.v(52.0, 42.0)));
-        if w::button(ui, sc, button, Id::new("back"), "Back", Some(w::ACCENT)).clicked() {
+        if w::button(ui, sc, button, Id::unique("back"), "Back", Some(w::ACCENT)).clicked() {
             std::process::exit(0);
         }
         ui.ctx().request_repaint();
