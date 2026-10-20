@@ -22,9 +22,7 @@ validly signed repository is refused), and every package is checked against the 
 the signed metadata before it is unpacked. Set `STORE_URL=https://<user>.github.io/pikiosk-apps` and
 `STORE_CHANNEL=stable` (or `beta`) in `kiosk.conf` to turn it on.
 
-> **The `root.json` in this repository is a development root.** Its private keys are on a developer's
-> machine. Before you publish to real devices, run the key ceremony below, replace `root.json` here and
-> in the pikiosk repo, and build a new image.
+> `root.json` here is the same file as `package/kioskd/root.json` in the pikiosk repo. The four private keys are not in any repository; keep `root.der` offline.
 
 ## Key ceremony (once, offline)
 
