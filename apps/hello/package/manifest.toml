@@ -1,0 +1,8 @@
+id = "de.jochem.hello"
+version = "1.0.0"
+name = "Hello"
+category = "Demo"
+entry = "bin/hello"
+icon = "assets/icon.png"
+boards = ["rpi3", "rpi4", "rpi5"]
+permissions = []

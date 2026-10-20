@@ -1,0 +1,127 @@
+# Builds apps and publishes the signed store (a TUF repository on the
+# gh-pages branch, one directory per channel: beta/ and stable/).
+#
+#   push a tag <app>-v<version>   build apps/<app>, publish it to beta
+#   run manually: promote-stable  copy everything in beta to stable
+#   every day                     re-sign beta and stable so the timestamp
+#                                 metadata never expires on a device
+name: Publish
+
+on:
+  push:
+    tags: ["*-v*"]
+  workflow_dispatch:
+    inputs:
+      action:
+        description: What to do
+        type: choice
+        options: [promote-stable, refresh]
+        default: promote-stable
+  schedule:
+    - cron: "17 3 * * *"
+
+permissions:
+  contents: write
+
+# one publish at a time: metadata versions must only go up
+concurrency:
+  group: publish
+
+env:
+  PIKIOSK_REPO: pierrejochem/pikiosk
+  # the pikiosk release whose SDK apps are built against, and the kpkg tool version
+  PIKIOSK_TAG: ${{ vars.PIKIOSK_TAG }}
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-unknown-linux-gnu
+
+      - name: Install jq, tuftool and kpkg
+        run: |
+          sudo apt-get update && sudo apt-get install -y --no-install-recommends jq
+          cargo install tuftool --version 0.17.0 --locked
+          cargo install kpkg --git "https://github.com/$PIKIOSK_REPO" --tag "$PIKIOSK_TAG" --locked
+
+      - name: Signing keys
+        env:
+          TARGETS_KEY_B64: ${{ secrets.TARGETS_KEY }}
+          SNAPSHOT_KEY_B64: ${{ secrets.SNAPSHOT_KEY }}
+          TIMESTAMP_KEY_B64: ${{ secrets.TIMESTAMP_KEY }}
+        run: |
+          umask 077
+          mkdir "$RUNNER_TEMP/keys"
+          echo "$TARGETS_KEY_B64" | base64 -d > "$RUNNER_TEMP/keys/targets.der"
+          echo "$SNAPSHOT_KEY_B64" | base64 -d > "$RUNNER_TEMP/keys/snapshot.der"
+          echo "$TIMESTAMP_KEY_B64" | base64 -d > "$RUNNER_TEMP/keys/timestamp.der"
+          {
+            echo "ROOT_JSON=$GITHUB_WORKSPACE/root.json"
+            echo "TARGETS_KEY=$RUNNER_TEMP/keys/targets.der"
+            echo "SNAPSHOT_KEY=$RUNNER_TEMP/keys/snapshot.der"
+            echo "TIMESTAMP_KEY=$RUNNER_TEMP/keys/timestamp.der"
+          } >> "$GITHUB_ENV"
+
+      - name: Fetch the live repository
+        run: |
+          git fetch origin gh-pages:gh-pages 2>/dev/null && git worktree add live gh-pages || mkdir live
+
+      - name: Build the app (tag pushes)
+        if: github.ref_type == 'tag'
+        run: |
+          app=${GITHUB_REF_NAME%-v*}
+          gh release download "$PIKIOSK_TAG" --repo "$PIKIOSK_REPO" --pattern '*sdk-aarch64.tar.gz' --output sdk.tar.gz
+          mkdir sdk && tar -xzf sdk.tar.gz -C sdk --strip-components=1
+          sdk/relocate-sdk.sh
+          scripts/build-app.sh "apps/$app" sdk "$RUNNER_TEMP/new"
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Publish
+        run: |
+          publish() { # publish <channel> <packages-dir>
+            if [ -d "live/$1/metadata" ]; then old="live/$1"; else old=-; fi
+            scripts/publish.sh "$2" "$old" "$RUNNER_TEMP/out/$1"
+          }
+          packages() { # packages <channel>: the apps already in a channel
+            mkdir -p "$RUNNER_TEMP/pkgs/$1"
+            [ -d "live/$1" ] && scripts/live-packages.sh "live/$1" "$RUNNER_TEMP/pkgs/$1" || true
+          }
+          if [ "$GITHUB_REF_TYPE" = tag ]; then
+            packages beta
+            cp "$RUNNER_TEMP"/new/*.kpkg "$RUNNER_TEMP/pkgs/beta/"
+            publish beta "$RUNNER_TEMP/pkgs/beta"
+          elif [ "${{ github.event.inputs.action }}" = promote-stable ]; then
+            packages beta
+            publish stable "$RUNNER_TEMP/pkgs/beta"
+          else
+            for ch in beta stable; do
+              [ -d "live/$ch/metadata" ] || continue
+              packages "$ch"
+              publish "$ch" "$RUNNER_TEMP/pkgs/$ch"
+            done
+          fi
+
+      - name: Deploy to gh-pages
+        run: |
+          git config user.name "pikiosk-apps publisher"
+          git config user.email "actions@users.noreply.github.com"
+          if [ ! -e live/.git ]; then
+            git worktree prune
+            git worktree add --detach live
+            (cd live && git checkout --orphan gh-pages && git rm -rfq . 2>/dev/null || true)
+          fi
+          for dir in "$RUNNER_TEMP"/out/*; do
+            [ -d "$dir" ] || continue
+            rm -rf "live/$(basename "$dir")"
+            cp -r "$dir" "live/$(basename "$dir")"
+          done
+          touch live/.nojekyll
+          cd live
+          git add -A
+          git diff --cached --quiet || git commit -m "publish ${GITHUB_REF_NAME:-$GITHUB_EVENT_NAME}"
+          git push origin HEAD:gh-pages

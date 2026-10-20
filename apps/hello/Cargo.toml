@@ -1,0 +1,16 @@
+[package]
+name = "hello"
+version = "1.0.0"
+edition = "2024"
+description = "A minimal pikiosk app: one glass card and a button that exits"
+license = "MIT"
+
+[dependencies]
+anyhow = "1"
+egui = { version = "0.37", default-features = false }
+kiosk-kit = { git = "https://github.com/pierrejochem/pikiosk", branch = "master" }
+
+[profile.release]
+lto = "thin"
+strip = true
+panic = "abort"
