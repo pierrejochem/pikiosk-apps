@@ -60,3 +60,7 @@ Build and try it on your machine (needs the pikiosk repo next to this one):
 cd apps/hello
 cargo build --release --config 'patch."https://github.com/pierrejochem/pikiosk".kiosk-kit.path="../../../pikiosk/kiosk-kit"'
 ```
+
+## License
+
+MIT, see [LICENSE](LICENSE).
