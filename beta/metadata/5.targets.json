@@ -2,19 +2,19 @@
   "signed": {
     "_type": "targets",
     "spec_version": "1.0.0",
-    "version": 4,
-    "expires": "2027-01-22T08:17:29.265127438Z",
+    "version": 5,
+    "expires": "2027-01-23T08:36:29.989787370Z",
     "targets": {
-      "de.jochem.hello-1.0.0.kpkg": {
-        "length": 1405051,
-        "hashes": {
-          "sha256": "06263bc47f0b4645e3967416eac83039013ecfcde69c97f788c35db256ba8618"
-        }
-      },
       "catalog.json": {
         "length": 313,
         "hashes": {
           "sha256": "9c06b25f81b44a1190745b688d17e4ea175bd28b5b57554faec7cb1ddf56b741"
+        }
+      },
+      "de.jochem.hello-1.0.0.kpkg": {
+        "length": 1405051,
+        "hashes": {
+          "sha256": "06263bc47f0b4645e3967416eac83039013ecfcde69c97f788c35db256ba8618"
         }
       }
     },
@@ -26,7 +26,7 @@
   "signatures": [
     {
       "keyid": "e687b6667f1a6ab2948e913c602e9cfc1d307f0e58168e58e24aed9f47bfc440",
-      "sig": "3137c541bedd8611c922ac5e83e7d7888a051cd2fa39e7665b4ededd84ad71c0f50493e302c867903502f348dfa4ab23c6892ed9e9704fca69c99b778355350a"
+      "sig": "b5a4c2b2362dd2fdd00a825dce9eefe7ffe8ff4202cf8f811143f7cd3e0ebba8ecef2b7e4aec24b894697b5c0c7f58ced1520494378c7af4ebdfbad9352cc60d"
     }
   ]
 }
