@@ -1,0 +1,8 @@
+id = "de.jochem.weather"
+version = "1.0.0"
+name = "Wetter"
+category = "Info"
+entry = "bin/weather"
+icon = "assets/icon.png"
+boards = ["rpi3", "rpi4", "rpi5"]
+permissions = ["network"]
