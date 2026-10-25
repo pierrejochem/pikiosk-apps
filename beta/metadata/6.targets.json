@@ -1,0 +1,38 @@
+{
+  "signed": {
+    "_type": "targets",
+    "spec_version": "1.0.0",
+    "version": 6,
+    "expires": "2027-01-23T17:28:14.862678150Z",
+    "targets": {
+      "de.jochem.weather-1.0.0.kpkg": {
+        "length": 2324106,
+        "hashes": {
+          "sha256": "7003874208051f0043d96f1c3b75013e09935d5bc875c8017679f0f38691a29c"
+        }
+      },
+      "de.jochem.hello-1.0.0.kpkg": {
+        "length": 1405051,
+        "hashes": {
+          "sha256": "06263bc47f0b4645e3967416eac83039013ecfcde69c97f788c35db256ba8618"
+        }
+      },
+      "catalog.json": {
+        "length": 627,
+        "hashes": {
+          "sha256": "e0b182979528d4539e0264e761ea1c4f81422336ffc791514a5d592a4289669c"
+        }
+      }
+    },
+    "delegations": {
+      "keys": {},
+      "roles": []
+    }
+  },
+  "signatures": [
+    {
+      "keyid": "e687b6667f1a6ab2948e913c602e9cfc1d307f0e58168e58e24aed9f47bfc440",
+      "sig": "901bb23ab8cb036e8d41da8454573d58656056fdefb364891c490e3d951cf2b46e9a2a7cef2d5c99609efe4d0daa308e1507bd722a10b5fdf78fb5f30ad76702"
+    }
+  ]
+}
