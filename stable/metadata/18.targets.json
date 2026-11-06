@@ -2,8 +2,8 @@
   "signed": {
     "_type": "targets",
     "spec_version": "1.0.0",
-    "version": 17,
-    "expires": "2027-02-03T11:11:38.809275465Z",
+    "version": 18,
+    "expires": "2027-02-04T11:07:02.035624274Z",
     "targets": {
       "de.jochem.weather-1.0.0.kpkg": {
         "length": 2324106,
@@ -32,7 +32,7 @@
   "signatures": [
     {
       "keyid": "e687b6667f1a6ab2948e913c602e9cfc1d307f0e58168e58e24aed9f47bfc440",
-      "sig": "83ced2bb9de4382a2332f8b7b1d40282f193511ffaa4db0a1f236b750f5235bad0f5a50ecf32afcb1438c322a240b0cd1bb80a4e15affe828ec86d61c5f58205"
+      "sig": "4bfebfb282525740496ed3b754c4d5efba782f057952a7de57edb0ad63b45302d1b7465e737d9a6135e040688319ce38d7c14235e4aed6081b4a9749f072a601"
     }
   ]
 }

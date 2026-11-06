@@ -2,19 +2,19 @@
   "signed": {
     "_type": "targets",
     "spec_version": "1.0.0",
-    "version": 17,
-    "expires": "2027-02-03T11:11:38.738788735Z",
+    "version": 18,
+    "expires": "2027-02-04T11:07:01.985667576Z",
     "targets": {
-      "catalog.json": {
-        "length": 627,
-        "hashes": {
-          "sha256": "e0b182979528d4539e0264e761ea1c4f81422336ffc791514a5d592a4289669c"
-        }
-      },
       "de.jochem.weather-1.0.0.kpkg": {
         "length": 2324106,
         "hashes": {
           "sha256": "7003874208051f0043d96f1c3b75013e09935d5bc875c8017679f0f38691a29c"
+        }
+      },
+      "catalog.json": {
+        "length": 627,
+        "hashes": {
+          "sha256": "e0b182979528d4539e0264e761ea1c4f81422336ffc791514a5d592a4289669c"
         }
       },
       "de.jochem.hello-1.0.0.kpkg": {
@@ -32,7 +32,7 @@
   "signatures": [
     {
       "keyid": "e687b6667f1a6ab2948e913c602e9cfc1d307f0e58168e58e24aed9f47bfc440",
-      "sig": "f312ac2ab2e8243d2a1de2b99b2a215b246c071ddf0b1db06c2811db6f5ee28a0d01bc288104f5501598e30634b4c16605bd072b601b84f4069208cdd6c34f0f"
+      "sig": "daf9cfbb39ff037db879e3f2e0f63bd8e366629aba9cc51cad0c6900bea18fe41ae003395d71f104108bb5f66d76bddbd2756aaaed51a9ead2c2cb684914f20d"
     }
   ]
 }
