@@ -2,8 +2,8 @@
   "signed": {
     "_type": "targets",
     "spec_version": "1.0.0",
-    "version": 19,
-    "expires": "2027-02-05T10:27:44.661809265Z",
+    "version": 20,
+    "expires": "2027-02-06T10:35:34.399520711Z",
     "targets": {
       "de.jochem.hello-1.0.0.kpkg": {
         "length": 1405051,
@@ -32,7 +32,7 @@
   "signatures": [
     {
       "keyid": "e687b6667f1a6ab2948e913c602e9cfc1d307f0e58168e58e24aed9f47bfc440",
-      "sig": "6ca89b9f2a09086431b5970f45f276ec1bbe7c1ca25f9edb84190cfe09fd64300acf313e03e0caf99409b5fbd01f2c07801c48d07eebce4ba63030fc001b5a0d"
+      "sig": "fc4c3236a53400ae995a1bd340236ebf9d06a8567234597b9f39192936680c2285ddc08a3a1bee720ddaaf9197c8df0a79dc2d5f374a494ad7ad61f22d9c4d0b"
     }
   ]
 }
