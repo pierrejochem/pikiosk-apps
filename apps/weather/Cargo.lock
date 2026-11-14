@@ -1354,7 +1354,7 @@ checksum = "e2db585e1d738fc771bf08a151420d3ed193d9d895a36df7f6f8a9456b911ddc"
 [[package]]
 name = "kiosk-kit"
 version = "0.3.0"
-source = "git+https://github.com/pierrejochem/pikiosk?branch=master#b774a5473155c3ea3be432c7ded3f8d740332caf"
+source = "git+https://github.com/pierrejochem/pikiosk?branch=master#ef323d44d1f46fdd2ddd9d5ac5c70c3c72153a3a"
 dependencies = [
  "anyhow",
  "drm",
