@@ -1,0 +1,19 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+  # Each app is its own crate with its own Cargo.lock, so each needs an entry.
+  - package-ecosystem: cargo
+    directory: /apps/hello
+    schedule:
+      interval: weekly
+  - package-ecosystem: cargo
+    directory: /apps/weather
+    schedule:
+      interval: weekly
+  - package-ecosystem: cargo
+    directory: /dev/desktop-host
+    schedule:
+      interval: weekly
