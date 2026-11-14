@@ -54,6 +54,16 @@ Start from `apps/hello`. An app is a Rust program that implements `kiosk_kit::Ap
 `kiosk_kit::run`. `package/manifest.toml` names it (`id`, `version`, `name`, `category`, `entry`,
 `icon`, `boards`, `permissions`); `kpkg build` checks it and the 128×128 PNG icon.
 
+Run it in a desktop window, no device or DRM/KMS needed (also what an IDE run config should call):
+
+```sh
+scripts/dev.sh hello        # = cd apps/hello && cargo run --features desktop
+```
+
+Every app gets this from `dev/desktop-host` (crate `pikiosk-desktop`). To enable it in a new app, copy
+the `[features]` block, the optional `pikiosk-desktop` dependency and the `cfg(feature = "desktop")`
+lines in `main` from `apps/hello`. Release builds never enable the feature.
+
 Build and try it on your machine (needs the pikiosk repo next to this one):
 
 ```sh

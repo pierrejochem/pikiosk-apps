@@ -1,0 +1,13 @@
+[package]
+name = "pikiosk-desktop"
+version = "0.1.0"
+edition = "2024"
+description = "Dev runner: shows a kiosk_kit::App in a desktop window instead of taking over DRM/KMS"
+license = "MIT"
+publish = false
+
+[dependencies]
+anyhow = "1"
+eframe = { version = "0.37", default-features = false, features = ["glow", "x11", "wayland", "default_fonts"] }
+egui = { version = "0.37", default-features = false }
+kiosk-kit = { git = "https://github.com/pierrejochem/pikiosk", branch = "master" }

@@ -36,5 +36,9 @@ impl App for Hello {
 }
 
 fn main() -> anyhow::Result<()> {
-    kiosk_kit::run(Hello { glass: GlassSystem::default() })
+    let app = Hello { glass: GlassSystem::default() };
+    #[cfg(feature = "desktop")]
+    return pikiosk_desktop::run("hello", app);
+    #[cfg(not(feature = "desktop"))]
+    kiosk_kit::run(app)
 }

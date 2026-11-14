@@ -163,5 +163,8 @@ fn repaint(ui: &Ui) {
 }
 
 fn main() -> anyhow::Result<()> {
+    #[cfg(feature = "desktop")]
+    return pikiosk_desktop::run("weather", Weather::new());
+    #[cfg(not(feature = "desktop"))]
     kiosk_kit::run(Weather::new())
 }

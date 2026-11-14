@@ -5,7 +5,12 @@ edition = "2024"
 description = "A pikiosk weather app: current conditions, hourly chart and 8-day forecast from Open-Meteo"
 license = "MIT"
 
+[features]
+# IDE/dev runner: `cargo run --features desktop` opens a window instead of taking over DRM/KMS.
+desktop = ["dep:pikiosk-desktop"]
+
 [dependencies]
+pikiosk-desktop = { path = "../../dev/desktop-host", optional = true }
 anyhow = "1"
 egui = { version = "0.37", default-features = false }
 kiosk-kit = { git = "https://github.com/pierrejochem/pikiosk", branch = "master" }
